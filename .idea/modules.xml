@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/demo1/demo1.iml" filepath="$PROJECT_DIR$/demo1/demo1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/spring-boot-web/spring-boot-web.iml" filepath="$PROJECT_DIR$/spring-boot-web/spring-boot-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-boot-interceptor/spring-boot-interceptor.iml" filepath="$PROJECT_DIR$/spring-boot-interceptor/spring-boot-interceptor.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-boot-wen.iml" filepath="$PROJECT_DIR$/spring-boot-wen.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-wen-mybatis/spring-wen-mybatis.iml" filepath="$PROJECT_DIR$/spring-wen-mybatis/spring-wen-mybatis.iml" />
     </modules>

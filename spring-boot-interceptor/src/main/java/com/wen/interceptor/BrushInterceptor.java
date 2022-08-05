@@ -1,8 +1,10 @@
 package com.wen.interceptor;
 
 import com.alibaba.fastjson2.JSON;
+import com.wen.CodeMsg;
 import com.wen.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -11,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
 
-
+@Component
 public class BrushInterceptor implements HandlerInterceptor {
     @Autowired
     private RedisService redisService;
@@ -39,13 +41,13 @@ public class BrushInterceptor implements HandlerInterceptor {
 
             //从redis中获取用户访问的次数
             AccessKey ak = AccessKey.withExpire(seconds);
-            Integer count = redisService.get(ak,key,Integer.class);
+            Integer count = 0;//redisService.get(ak,key,Integer.class);
             if (count == null){
                 //第一次访问
-                redisService.set(ak,key,1);
+                //redisService.set(ak,key,1);
             } else if (count < maxCount){
                 //加1
-                redisService.incr(ak,key);
+                //redisService.incr(ak,key);
             } else {
                 //超出访问次数
                 render(response,CodeMsg.ACCESS_LIMIT_REACHED); //这里的CodeMsg是一个返回参数
