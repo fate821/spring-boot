@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h4>各种数据提交测试</h4>
+    <input type="button" value="ajax提交" id="add"/>
+    <script type="application/javascript" src="/js/jquery.js"></script>
+</body>
+<script type="text/javascript">
+    $("#add").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "save",
+            data: {"userName":"wen","password":"1583544123"},
+            success: function (data) {
+                alert(data)
+                console.log(data);
+            },
+            error:function(xhr){
+                console.log(xhr.responseText);
+                // alert(xhr.)
+            }
+        });
+    });
+</script>
+</html>

@@ -9,6 +9,8 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>spring-boot-interceptor</module>
+		<module>spring-boot-mybatisplus</module>
+		<module>spring-boot-thymeleaf</module>
 	</modules>
 
 	<build>

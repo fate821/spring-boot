@@ -2,18 +2,24 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="spring-boot-thymeleaf" />
         <module name="spring-boot-interceptor" />
         <module name="spring-wen-mybatis" />
         <module name="demo1" />
+        <module name="spring-boot-mybatisplus" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="demo" target="1.8" />
       <module name="demo1" target="1.8" />
       <module name="spring-boot-interceptor" target="1.8" />
+      <module name="spring-boot-mybatisplus" target="1.8" />
+      <module name="spring-boot-thymeleaf" target="1.8" />
       <module name="spring-boot-web" target="1.5" />
       <module name="spring-boot-wen" target="1.8" />
       <module name="spring-wen-mybatis" target="1.8" />
@@ -21,8 +27,11 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="demo" options="-parameters" />
       <module name="demo1" options="-parameters" />
       <module name="spring-boot-interceptor" options="-parameters" />
+      <module name="spring-boot-mybatisplus" options="-parameters" />
+      <module name="spring-boot-thymeleaf" options="-parameters" />
       <module name="spring-boot-web" options="-parameters" />
       <module name="spring-boot-wen" options="" />
       <module name="spring-wen-mybatis" options="-parameters" />

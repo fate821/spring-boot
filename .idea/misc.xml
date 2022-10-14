@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$" />
+    <file type="web" url="file://$PROJECT_DIR$/demo" />
     <file type="web" url="file://$PROJECT_DIR$/spring-boot-web" />
   </component>
   <component name="MavenProjectsManager">
@@ -10,6 +12,8 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/spring-wen-mybatis/pom.xml" />
         <option value="$PROJECT_DIR$/spring-boot-interceptor/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-boot-mybatisplus/pom.xml" />
+        <option value="$PROJECT_DIR$/spring-boot-thymeleaf/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
