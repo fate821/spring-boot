@@ -12,7 +12,11 @@ public class User {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
-    @TableField("user_name")
+    //    @TableField("user_name")
     private String userName;
-    private String password;
+    private String phone;
+    private int age;
+    private String education;
+    private String sex;
+    private String likes;
 }

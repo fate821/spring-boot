@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>用户列表</title>
+	<meta charset="utf-8">
+	<style>
+		body {
+			font-family: Arial;
+		}
+
+		table {
+			margin: 50px auto;
+			border-collapse: collapse;
+			box-shadow: 0 0 5px #ddd;
+			border-radius: 5px;
+		}
+
+		th,
+		td {
+			padding: 10px;
+			border: 1px solid #ddd;
+		}
+
+		th {
+			background-color: #eee;
+		}
+
+		td button {
+			background-color: #f44336;
+			border: none;
+			color: white;
+			padding: 5px 10px;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+
+		td button:hover {
+			background-color: #ff6666;
+		}
+
+		.add-btn {
+			display: inline-block;
+			margin: 20px;
+			background-color:#3e8e41;
+			color: white;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+
+		.add-btn:hover {
+			background-color: #3e8e41;
+		}
+
+		.close-btn {
+			color: #aaa;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+			cursor: pointer;
+		}
+
+		.dialog {
+			display: none;
+			position: fixed;
+			z-index: 9999;
+			padding-top: 100px;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgb(0, 0, 0);
+			background-color: rgba(0, 0, 0, 0.4);
+		}
+
+		.dialog-content {
+			background-color: #fff;
+			margin: auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 80%;
+			border-radius: 5px;
+			position: relative;
+		}
+
+		@media only screen and (max-width: 600px) {
+			table {
+				width: auto !important;
+			}
+
+			table,
+			thead,
+			tbody,
+			th,
+			td,
+			tr {
+				display: block !important;
+			}
+
+			table tr {
+				border: 1px solid #ddd;
+			}
+
+			table td {
+				border: none;
+				position: relative;
+				padding-left: 50%;
+			}
+
+			table td:before {
+				position: absolute;
+				top: 6px;
+				left: 6px;
+				width: 45%;
+				padding-right: 10px;
+				white-space: nowrap;
+			}
+
+			table td:nth-of-type(1):before {
+				content: "ID:";
+			}
+
+			table td:nth-of-type(2):before {
+				content: "姓名:";
+			}
+
+			table td:nth-of-type(3):before {
+				content: "年龄:";
+			}
+
+			table td:nth-of-type(4):before {
+				content: "手机:";
+			}
+
+			table td:nth-of-type(5):before {
+				content: "教育程度:";
+			}
+
+			table td button {
+				position: absolute;
+				right: 6px;
+				top: 6px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>姓名</th>
+				<th>年龄</th>
+				<th>手机</th>
+				<th>教育程度</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody id="user-list">
+			<!-- 用户数据将在此处动态添加 -->
+		</tbody>
+	</table>
+	<button class="add-btn">添加用户</button>
+	<!-- 添加/编辑对话框 -->
+	<div class="dialog" id="user-dialog">
+		<div class="dialog-content">
+			<span class="close-btn">&times;</span>
+			<h3 id="dialog-title"></h3>
+			<form>
+				<input type="hidden" id="user-id">
+				<label for="name">姓名<span class="error">*</span>:</label>
+				<input type="text" id="name" name="name" pattern="^[\u4e00-\u9fa5a-zA-Z]{3,10}$" required>
+				<label for="age">年龄<span class="error">*</span>:</label>
+				<input type="number" id="age" name="age" min="1" max="200" required>
+				<label for="phone">手机<span class="error">*</span>:</label>
+				<input type="text" id="phone" name="phone" pattern="^\d{11}$" required>
+				<label for="education">教育程度<span class="error">*</span>:</label>
+				<select id="education" name="education">
+					<option value="">请选择</option>
+					<option value="初中及以下">初中及以下</option>
+					<option value="高中">高中</option>
+					<option value="大专">大专</option>
+					<option value="本科">本科</option>
+					<option value="研究生及以上">研究生及以上</option>
+				</select>
+				<input type="submit" value="提交">
+			</form>
+		</div>
+	</div>
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		// 异步获取用户数据
+		$(function () {
+			$.ajax({
+				url: '/user/search',
+				dataType: 'json',
+				success: function (data) {
+					var userList = '';
+					$.each(data.data, function (i, user) {
+						userList += '<tr>';
+						userList += '<td>' + user.id + '</td>';
+						userList += '<td>' + user.userName + '</td>';
+						userList += '<td>' + user.age + '</td>';
+						userList += '<td>' + user.phone + '</td>';
+						userList += '<td>' + user.education + '</td>';
+						userList += '<td><button class="edit-btn" data-id="' + user.id + '">编辑</button> <button class="delete-btn" data-id="' + user.id + '">删除</button></td>';
+						userList += '</tr>';
+					});
+					$('#user-list').html(userList);
+				}
+			});
+		});
+		// 显示添加/编辑对话框
+		$(document).on('click', '.add-btn, .edit-btn', function () {
+			var title = $(this).hasClass('add-btn') ? '添加用户' : '编辑用户';
+			var dialog = $('#user-dialog');
+			$('#dialog-title').text(title);
+			$('#user-id').val('');
+			$('#name').val('');
+			$('#age').val('');
+			$('#phone').val('');
+			$('#education').val('');
+			if ($(this).hasClass('edit-btn')) {
+				var userId = $(this).data('id');
+				$.ajax({
+					url: 'get_user.php?id=' + userId,
+					dataType: 'json',
+					success: function (data) {
+						$('#dialog-title').text(title + ': ' + data.name);
+						$('#user-id').val(data.id);
+						$('#name').val(data.name);
+						$('#age').val(data.age);
+						$('#phone').val(data.phone);
+						$('#education').val(data.education);
+					}
+				});
+			}
+			dialog.show();
+		});
+		// 关闭添加/编辑对话框
+		$(document).on('click', '.close-btn', function () {
+			$('#user-dialog').hide();
+		});
+		// 提交添加/编辑表单
+		$(document).on('submit', '#user-dialog form', function (event) {
+			event.preventDefault();
+			var userId = $('#user-id').val();
+			var name = $('#name').val();
+			var age = $('#age').val();
+			var phone = $('#phone').val();
+			var education = $('#education').val();
+			var url = userId ? 'update_user.php' : 'add_user.php';
+			var data = {
+				id: userId,
+				name: name,
+				age: age,
+				phone: phone,
+				education: education
+			};
+			$.ajax({
+				url: url,
+				type: 'post',
+				dataType: 'json',
+				data: data,
+				success: function (data) {
+					alert(data.message);
+					if (data.success) {
+						$('#user-dialog').hide();
+						location.reload();
+					}
+				}
+			});
+		});
+		// 删除用户
+		$(document).on('click', '.delete-btn', function () {
+			var userId = $(this).data('id');
+			if (confirm('确定要删除该用户吗？')) {
+				$.ajax({
+					url: '/user/delete',
+					type: 'post',
+					dataType: 'json',
+					data: {
+						id: userId
+					},
+					success: function (data) {
+						alert(data.message);
+						if (data.success) {
+							location.reload();
+						}
+					}
+				});
+			}
+		});
+	</script>
+</body>
+
+</html>

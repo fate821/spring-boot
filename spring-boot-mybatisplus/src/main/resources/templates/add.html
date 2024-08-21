@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <title>综合案列</title>
+    <style type="text/css">
+        input:focus {
+            /* color: pink; */
+            background-color: rgb(223, 18, 18);
+        }
+
+        table {
+            margin: 0 auto;
+            padding: 0;
+            width: 800px;
+            font-size: 14px;
+            border-collapse: collapse;
+            border-color: #000000;
+            text-align: center;
+        }
+
+        td {
+            height: 35px;
+            padding: 4px;
+        }
+
+        input {
+            font-size: 14px;
+            border: 2;
+
+        }
+
+        .btn {
+            width: 80px;
+            height: 35px;
+            border: none;
+            background-color: #99ccff;
+            color: #993564;
+        }
+
+        .kuan {
+            width: 100px;
+        }
+
+    </style>
+</head>
+<body>
+<form id="=form1" onsubmit="return false" action="file:///C:/Users/ASUS/Desktop/html/indexx/baioge.html">
+    <table border="1" cellpadding="10">
+        <tr>
+            <td colspan="2"><h1 style="text-align: center;">用户信息调查表</h1></td>
+        </tr>
+        <!-- 第一行 -->
+        <tr>
+            <td> 姓名:</td>
+            <td><input class="kuan" type="text" name="userName" id="userName" required onblur="checkName()"/>
+            </td>
+        </tr>
+        <tr>
+            <td>年龄</td>
+            <td>
+                <input class="kuan" type="text" name="age" id="age" required
+                       oninput="value=value.replace(/[^\d]/g,'')"/>
+            </td>
+        </tr>
+        <tr>
+            <td>手机号</td>
+            <td>
+                <input class="kuan" type="text" name="phone" id="phone" required
+                       oninput="value=value.replace(/[^\d]/g,'')"
+                       onblur="checksjh()"/>
+            </td>
+        </tr>
+        <!-- 第二行 -->
+        <tr>
+            <td class="red">教育程度</td>
+            <td>
+                <select name="education" id="education">
+                    <option value="初中">初中</option>
+                    <option value="高中">高中</option>
+                    <option value="大学">大学</option>
+                </select>
+            </td>
+        </tr>
+        </tr>
+        <!-- 第四行 -->
+        <tr>
+            <td>性别</td>
+            <td>
+                <input type="radio" name="sex" value="男"/> <label for="男">男</label> &nbsp;
+                <input type="radio" name="sex" value="女"/> <label for="女">女</label> &nbsp;
+            </td>
+        </tr>
+
+        <tr>
+            <td>喜欢的水果</td>
+            <td>
+                <input type="checkbox" name="likes" id="hunyin" value="跑步"/>跑步
+                <input type="checkbox" name="likes" value="游泳"/>游泳
+                <input type="checkbox" name="likes" value="阅读"/> 阅读
+            </td>
+        </tr>
+
+    </table>
+    <table>
+        <td colspan="3">
+            <input type="button" name="submit" id="submit" value="提交"/>
+        </td>
+    </table>
+    <div id="nameError" style="color: red;"></div>
+</form>
+<script>
+    function checkName() {
+        var username = document.getElementById("userName").value;
+        if (username.length < 3 || username.length > 10) {
+            document.getElementById("nameError").innerHTML = "名字应该在3-10之间";
+        } else {
+            document.getElementById("nameError").innerHTML = ""
+        }
+    }
+
+    function checksjh() {
+        var sjh = document.getElementById("phone").value;
+        if (sjh.length < 11 || sjh.length > 11) {
+            document.getElementById("nameError").innerHTML = "手机号应该在11位";
+        } else {
+            document.getElementById("nameError").innerHTML = ""
+        }
+    }
+
+    $(document).ready(function () {
+        $("#submit").click(function () {
+            var likes='';
+            var likesArrs = $("input[name='likes']:checked");
+            for (var i = 0; i < likesArrs.length; i++) {
+                likes += $(likesArrs[i]).val() + ',';
+            }
+            var res = {
+                userName: $("#userName").val(),
+                age: $("#age").val(),
+                phone: $("#phone").val(),
+                education: $("#education").val(),
+                sex: $('input:radio:checked').val(),
+                likes: likes
+            };
+
+            console.log(res);
+
+            $('#result').html(JSON.stringify(res));
+
+            $.ajax({
+                type: "POST",
+                url: "save",
+                data: res,
+                success: function (data) {
+                    alert(data.msg)
+                    console.log(data);
+                    window.history.back();
+                },
+                error: function (xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+
+        });
+    });
+</script>
+
+</body>
+</html>

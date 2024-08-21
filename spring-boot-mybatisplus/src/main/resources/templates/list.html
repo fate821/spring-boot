@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="Cn_zh">
+<head>
+    <link rel="import"
+          href="C:/Users/ASUS/Desktop/html/indexx/Untitled-1.html" id="page1">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+
+    </script>
+    <style>
+        table {
+            margin: 100px auto;
+
+            width: 500px;
+
+            border-collapse: collapse;
+
+            text-align: center;
+        }
+
+        td,
+        th {
+            border: 1px solid #333;
+        }
+
+        thead,
+        tr {
+            height: 40px;
+            background-color: #ccc;
+        }
+    </style>
+
+</head>
+<body>
+<table cellspacing="0">
+    <thead>
+    <tr style="background-color: #cacdca">
+        <th>姓名</th>
+        <th>年龄</th>
+        <th>手机号</th>
+        <th>教育程度</th>
+        <th>性别</th>
+        <th>喜欢的水果</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody id="bodyUsers"></tbody>
+</table>
+<script>
+    var data =
+        {
+            name: $("input[name='username']").val(),
+            nianling: $("input[name='nianling']").val(),
+            sjh: $("input[name='sjh']").val(),
+            jaioyu: $("#jiaoyu option:selected").val(),
+            xb: $("input[name='xingb']:checked").val(),
+            likesg: $("input[name='hunyin']:checked")
+
+        };
+
+
+    $.getJSON("/user/search", function (data) {
+        console.log(data);
+        //$("name").val(data.name);
+        let str;
+        data.data.forEach(item => {
+            str += "<tr>";
+            str += "<td>" + item.userName + "</td>";
+            str += "<td>" + item.phone + "</td>";
+            str += "<td>" + item.age + "</td>";
+            str += "<td>" + item.sex + "</td>";
+            str += "<td>" + item.education + "</td>";
+            str += "<td>" + item.likes + "</td>";
+            str+="<td><a href='add'>添加</a>";
+
+            str+="</td>"
+            str += "</tr>"
+        });
+        $("#bodyUsers").append(str);
+    });
+
+    // var tbody = document.querySelector("tbody");
+    // for (var i = 0; i < data.length; i++) {
+    //     var tr = document.createElement("tr");
+    //     tbody.appendChild(tr);
+    //     for (var k in data[i]) {
+    //         var td = document.createElement("td");
+    //         td.innerHTML = data[i][k];
+    //         tr.appendChild(td);
+    //     }
+    //     var td = document.createElement("td");
+    //     td.innerHTML = '<a href="js:;">删除</a>';
+    //     tr.appendChild(td);
+    // }
+    // var a = document.querySelectorAll('a');
+    // for (var i = 0; i < a.length; i++) {
+    //     a[i].onclick = function () {
+    //         tbody.removeChild(this.parentNode.parentNode);
+    //     };
+    // }
+</script>
+</body>
+</html>

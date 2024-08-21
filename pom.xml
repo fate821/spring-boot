@@ -11,6 +11,7 @@
 		<module>spring-boot-interceptor</module>
 		<module>spring-boot-mybatisplus</module>
 		<module>spring-boot-thymeleaf</module>
+		<module>spring-boot-swagger</module>
 	</modules>
 
 	<build>

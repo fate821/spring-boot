@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/admin")
 public class IndexController {
-    @Autowired
-    private IUserService userService;
+
 
     @RequestMapping("/index")
     public String index(Model model){

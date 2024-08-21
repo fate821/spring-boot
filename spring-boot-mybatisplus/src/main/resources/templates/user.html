@@ -5,21 +5,163 @@
     <title>Title</title>
 </head>
 <body>
-    <h4>各种数据提交测试</h4>
-    <input type="button" value="ajax提交" id="add"/>
-    <script type="application/javascript" src="/js/jquery.js"></script>
+<table id="tablePage" border="1" cellspacing="0" cellpadding="10">
+    <tr>
+        <th>姓名</th>
+        <th>手机</th>
+        <th>年龄</th>
+        <th>性别</th>
+        <th>学历</th>
+        <th>爱好</th>
+    </tr>
+</table>
+<h4>各种数据提交测试</h4>
+<table border="1" cellspacing="0" cellpadding="10">
+    <tr>
+        <th>说明</th>
+        <th>参数</th>
+        <th>后端接收方式</th>
+        <th>操作</th>
+    </tr>
+    <tr>
+        <td>提交一个对象</td>
+        <td>{"userName":"wen","password":"1583544123"}</td>
+        <td>post,对象方式接收</td>
+        <td><input type="button" value="ajax提交" id="object"/></td>
+    </tr>
+    <tr>
+        <td>单个参数提交</td>
+        <td>userName=wen</td>
+        <td>get,单个参数方式接收</td>
+        <td><input type="button" value="ajax提交" id="param1"/></td>
+    </tr>
+    <tr>
+        <td>单个参数提交</td>
+        <td>userName=wenwen123</td>
+        <td>get,对象方式接收</td>
+        <td><input type="button" value="ajax提交" id="param2"/></td>
+    </tr>
+    <tr>
+        <td>单个参数放在url路径中提交</td>
+        <td>/user/wenwen123/</td>
+        <td>get,方式接收</td>
+        <td><input type="button" value="ajax提交" id="param3"/></td>
+    </tr>
+    <tr>
+        <td>多个对象参数提交</td>
+        <td>[{"userName":"wen","password":"1583544123"}]</td>
+        <td>get,方式接收</td>
+        <td><input type="button" value="ajax提交" id="list"/></td>
+    </tr>
+</table>
+
+<script type="application/javascript" src="/js/jquery.js"></script>
 </body>
 <script type="text/javascript">
-    $("#add").click(function () {
+    $(document).ready(function () {
+        $.ajax({
+            type: "get",
+            url: "search",
+            dataType: "json",
+            success: function (data) {
+                if (data.data) {
+                    let str;
+                    data.data.forEach(item => {
+                        str += "<tr>";
+                        str += "<td>" + item.userName + "</td>";
+                        str += "<td>" + item.phone + "</td>";
+                        str += "<td>" + item.age + "</td>";
+                        str += "<td>" + item.sex + "</td>";
+                        str += "<td>" + item.education + "</td>";
+                        str += "<td>" + item.likes + "</td>";
+                        str += "</tr>"
+                    });
+                    $("#tablePage").append(str);
+                }
+
+            }
+        });
+        //$("tablePage").parent();
+    });
+
+    //post对象提交
+    $("#object").click(function () {
+        let user = {"userName": "黄格", "phone": "1583547123", "age": 39, "education": "大专", sex: "男", "likes": "游泳、跑步"};
         $.ajax({
             type: "POST",
             url: "save",
-            data: {"userName":"wen","password":"1583544123"},
+            data: user,
             success: function (data) {
                 alert(data)
                 console.log(data);
             },
-            error:function(xhr){
+            error: function (xhr) {
+                console.log(xhr.responseText);
+            }
+        });
+    });
+
+    //get方式，单参数提交
+    $("#param1").click(function () {
+        $.ajax({
+            type: "get",
+            url: "info",
+            data: "id=6",
+            success: function (data) {
+                alert(data)
+                console.log(data);
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+            }
+        });
+    });
+
+    //get方式，单参数提交
+    $("#param2").click(function () {
+        $.ajax({
+            type: "get",
+            url: "param2",
+            data: "userName=wenwen123",
+            success: function (data) {
+                alert(data)
+                console.log(data);
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+            }
+        });
+    });
+
+
+    //get方式，单参数提交
+    $("#param3").click(function () {
+        $.ajax({
+            type: "get",
+            url: "paramPath/hewen123",
+            // data: "userName=wenwen123",
+            success: function (data) {
+                alert(data)
+                console.log(data);
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+            }
+        });
+    });
+
+    $("#list").click(function () {
+        let users = [{"userName": "wen", "password": "1583544123"}];
+        $.ajax({
+            type: "POST",
+            url: "list",
+            contentType: 'application/json;',
+            data: JSON.stringify(users),
+            success: function (data) {
+                alert(data)
+                console.log(data);
+            },
+            error: function (xhr) {
                 console.log(xhr.responseText);
                 // alert(xhr.)
             }

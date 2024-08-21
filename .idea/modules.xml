@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/demo1/demo1.iml" filepath="$PROJECT_DIR$/demo1/demo1.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-boot-interceptor/spring-boot-interceptor.iml" filepath="$PROJECT_DIR$/spring-boot-interceptor/spring-boot-interceptor.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-boot-mybatisplus/spring-boot-mybatisplus.iml" filepath="$PROJECT_DIR$/spring-boot-mybatisplus/spring-boot-mybatisplus.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-boot-swagger/spring-boot-swagger.iml" filepath="$PROJECT_DIR$/spring-boot-swagger/spring-boot-swagger.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-boot-thymeleaf/spring-boot-thymeleaf.iml" filepath="$PROJECT_DIR$/spring-boot-thymeleaf/spring-boot-thymeleaf.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-boot-wen.iml" filepath="$PROJECT_DIR$/spring-boot-wen.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-wen-mybatis/spring-wen-mybatis.iml" filepath="$PROJECT_DIR$/spring-wen-mybatis/spring-wen-mybatis.iml" />
